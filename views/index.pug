@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.9/htmx.min.js' integrity='sha512-FSS62yxqCRMCtm1J+ddRwX8DuCRVt/WMpihCo06P+Je5AG4CV9yoLX53zHaOB5w/eZdG7d/QAyUEJTnHZHrWKg==' crossorigin='anonymous' referrerpolicy='no-referrer')
+        script(src='https://cdn.tailwindcss.com')
+        title todo
+    body.flex.h-screen
+        main.flex.flex-col.self-center.justify-self-center.items-center.gap-4.border-2.rounded-lg.border-black.m-auto.p-4
+            .todo_list
+                include components/item.pug
+                each todo in item_list
+                    item(todo)
+            .actions
+                form(hx-post="/add" hx-target=".todo_list" hx-swap="beforeend").flex.gap-4
+                    input#content(type="text", name="content")
+                    button(type="submit") Add ToDo
