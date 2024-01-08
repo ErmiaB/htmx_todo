@@ -1,6 +1,7 @@
 mixin item(stuff)
-    .todo_item.border-2.border-black.rounded.p-2
-        p #{stuff}
+    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2(id=`f${stuff._id}`)
+        input.mr-8(value=stuff.content hx-patch=`/update/${stuff._id}` hx-trigger="keyup changed delay:1s" name="content")
+        button.bg-red-500(hx-delete=`/remove/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML") x
 
 if render 
     +item(content)

@@ -7,7 +7,7 @@ const toDoSchema = new mongoose.Schema({
     },
     done: {
         type: Boolean,
-        required: [true, "Du måste ange ett lotterinummer"],
+        required: [true, "Uppgiften måste anges."],
         default: false,
     },
 });

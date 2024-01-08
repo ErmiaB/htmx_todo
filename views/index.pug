@@ -11,7 +11,7 @@ html(lang="en")
             .todo_list
                 include components/item.pug
                 each todo in item_list
-                    item(todo)
+                    +item(todo)
             .actions
                 form(hx-post="/add" hx-target=".todo_list" hx-swap="beforeend").flex.gap-4
                     input#content(type="text", name="content")
