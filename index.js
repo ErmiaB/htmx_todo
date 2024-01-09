@@ -41,7 +41,7 @@ app.delete("/remove/:id", async (req, res) => {
 
 app.patch("/update/:id", async (req, res) => {
 	let item = await ToDoItem.findOne({_id: req.params.id});
-	if (item) {
+	if (item && req.body.content != "") {
 		item.content = req.body.content;
 		item.save();
 		res.render("components/item", {content: item, render: true});
@@ -49,7 +49,16 @@ app.patch("/update/:id", async (req, res) => {
 		res.status(404);
 		res.send("No such ToDo item found.")
 	}
-	
+});
+
+app.get("/edit/:id", async (req, res) => {
+	let item = await ToDoItem.findOne({_id: req.params.id});
+	if (item) {
+		res.render("components/item", {content: item, render: true, editing: true});
+	} else {
+		res.status(404);
+		res.send("No such ToDo item found.")
+	}
 });
 
 app.listen(3000);
