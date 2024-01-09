@@ -22,10 +22,10 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/add", async (req, res) => {
-	let student = await ToDoItem.create({
+	let item = await ToDoItem.create({
 		content: req.body.content
 	})
-	res.render("components/item", {content: student, render: true})
+	res.render("components/item", {content: item, render: true});
 });
 
 app.delete("/remove/:id", async (req, res) => {
@@ -42,10 +42,9 @@ app.delete("/remove/:id", async (req, res) => {
 app.patch("/update/:id", async (req, res) => {
 	let item = await ToDoItem.findOne({_id: req.params.id});
 	if (item) {
-		await ToDoItem.updateOne({_id: req.params.id}, {
-			content: req.body.content
-		});
-		res.send(req.body.content);
+		item.content = req.body.content;
+		item.save();
+		res.render("components/item", {content: item, render: true});
 	} else {
 		res.status(404);
 		res.send("No such ToDo item found.")

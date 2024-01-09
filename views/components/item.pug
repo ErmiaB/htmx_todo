@@ -1,7 +1,9 @@
 mixin item(stuff)
-    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2(id=`f${stuff._id}`)
-        input.mr-8(value=stuff.content hx-patch=`/update/${stuff._id}` hx-trigger="keyup changed delay:1s" name="content")
-        button.bg-red-500(hx-delete=`/remove/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML") x
+    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1(id=`f${stuff._id}`)
+        //input(type="checkbox" name="done" checked=stuff.done hx-patch=`/update/${stuff._id}` hx-trigger="changed")
+        input.item-content(value=stuff.content hx-patch=`/update/${stuff._id}` hx-trigger="keyup changed delay:1s" hx-target=`#f${stuff._id}` hx-swap="outerHTML" name="content" disabled)
+        button.bg-blue-500.p-1.rounded-md(hx-on:click=`document.querySelector('#f${stuff._id} input[name="content"]').disabled = !document.querySelector('#f${stuff._id} input[name="content"]').disabled` class="hover:bg-blue-600") Edit
+        button.bg-red-500.p-1.rounded-md(hx-delete=`/remove/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML" class="hover:bg-red-600") Delete
 
 if render 
     +item(content)
