@@ -11,7 +11,7 @@ html(lang="en")
             h1.text-xl Ermia's Fantastiska ToDo
             .content.flex.flex-col.gap-4.border-2.rounded-lg.border-black.mb-auto.p-4(class="w-[420px]")
                 .actions.flex.justify-center.gap-1
-                    form(hx-post="/add" hx-target=".todo-list" hx-swap="beforeend" hx-on::before-request="document.querySelector('#content').value = ''").flex.gap-4
+                    form.flex.gap-4(hx-post="/add" hx-target=".todo-list" hx-swap="beforeend" hx-on::before-request="document.querySelector('#content').value = ''")
                         input#content.border-2.rounded-lg.border-gray(type="text", name="content")
                         button.bg-green-500.p-1.rounded-md(type="submit" class="hover:bg-green-600") Add ToDo
                     button.bg-red-500.p-1.rounded-md(class="hover:bg-red-600" hx-delete="/all" hx-target=".todo-list") Purge All
