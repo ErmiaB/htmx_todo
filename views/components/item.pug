@@ -1,14 +1,14 @@
 
 
 mixin item(stuff, editing=false)
-    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1.w-96(id=`f${stuff._id}`)
-        //input(type="checkbox" name="done" checked=stuff.done hx-patch=`/update/${stuff._id}` hx-trigger="changed")
+    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1.w-96(id=`f${stuff._id}` class='bg-gray-500' ? stuff.done : '')
+        input(type="checkbox" name="done" checked=stuff.done hx-patch=`/done/${stuff._id}`)
         if editing
             form.flex.justify-between.gap-1.w-full(hx-patch=`/update/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML")
-                input.item-content.w-full.border-gray(value=stuff.content name="content")
+                input.item-content.w-full.pl-1.border-2.rounded-lg.border-gray(value=stuff.content name="content")
                 button.bg-green-500.p-1.rounded-md(class="hover:bg-green-600") Save
         else 
-            span.item-content.inline-block.align-middle.h-8.w-full #{stuff.content}
+            span.item-content.inline-block.leading-8.align-middle.h-8.pl-1.w-full.overflow-hidden #{stuff.content}
             button.bg-blue-500.p-1.rounded-md(hx-get=`/edit/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML" class="hover:bg-blue-600") Edit
         button.bg-red-500.p-1.rounded-md(hx-delete=`/remove/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML" class="hover:bg-red-600") Delete
 

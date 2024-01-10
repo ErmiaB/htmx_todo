@@ -14,7 +14,7 @@ html(lang="en")
                     form(hx-post="/add" hx-target=".todo_list" hx-swap="beforeend").flex.gap-4
                         input#content.border-2.rounded-lg.border-gray(type="text", name="content")
                         button.bg-green-500.p-1.rounded-md(type="submit" class="hover:bg-green-600") Add ToDo
-                .todo_list.flex.flex-col.gap-1
+                .todo_list.flex.flex-col.gap-1.overflow-scroll(class="max-h-[75vh]")
                     include components/item.pug
                     each todo in item_list
                         +item(todo)

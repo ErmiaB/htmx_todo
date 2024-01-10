@@ -61,6 +61,18 @@ app.get("/edit/:id", async (req, res) => {
 	}
 });
 
+app.patch("/done/:id", async(req, res) => {
+	let item = await ToDoItem.findOne({_id: req.params.id});
+	if (item) {
+		item.done = !item.done;
+		item.save();
+		res.send(item.done);
+	} else {
+		res.status(404);
+		res.send("No such ToDo item found.")
+	}
+});
+
 app.listen(3000);
 
 
