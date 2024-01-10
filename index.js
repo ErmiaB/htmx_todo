@@ -22,10 +22,16 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/add", async (req, res) => {
-	let item = await ToDoItem.create({
-		content: req.body.content
-	})
-	res.render("components/item", {content: item, render: true});
+	if (req.body.content != "") {
+		let item = await ToDoItem.create({
+			content: req.body.content
+		})
+		res.render("components/item", {content: item, render: true});
+	} else {
+		res.status(504);
+		res.send();
+	}
+	
 });
 
 app.delete("/remove/:id", async (req, res) => {
