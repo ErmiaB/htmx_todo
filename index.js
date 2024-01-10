@@ -72,11 +72,16 @@ app.patch("/done/:id", async(req, res) => {
 	if (item) {
 		item.done = !item.done;
 		item.save();
-		res.send(item.done);
+		res.render("components/item", {content: item, render: true});
 	} else {
 		res.status(404);
 		res.send("No such ToDo item found.")
 	}
+});
+
+app.delete("/all", async (req, res) => {
+	await ToDoItem.deleteMany({});
+	res.send();
 });
 
 app.listen(3000);

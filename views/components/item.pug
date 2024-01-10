@@ -1,8 +1,8 @@
 
 
 mixin item(stuff, editing=false)
-    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1.w-96(id=`f${stuff._id}` class='bg-gray-500' ? stuff.done : '')
-        input(type="checkbox" name="done" checked=stuff.done hx-patch=`/done/${stuff._id}`)
+    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1.w-96.transition.ease-in-out.duration-300(id=`f${stuff._id}` class=stuff.done?'opacity-50':'')
+        input.w-6(type="checkbox" name="done" checked=stuff.done hx-patch=`/done/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML")
         if editing
             form.flex.justify-between.gap-1.w-full(hx-patch=`/update/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML")
                 input.item-content.w-full.pl-1.border-2.rounded-lg.border-gray(value=stuff.content name="content")
@@ -13,4 +13,4 @@ mixin item(stuff, editing=false)
         button.bg-red-500.p-1.rounded-md(hx-delete=`/remove/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML" class="hover:bg-red-600") Delete
 
 if render 
-    +item(content, editing = true ? editing : false)
+    +item(content, editing)
