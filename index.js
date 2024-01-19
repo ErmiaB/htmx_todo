@@ -1,5 +1,6 @@
 import express from "express";
 // import session from "express-session";
+import morgan from "morgan";
 import mongoose from "mongoose";
 import ToDoItem from "./models/ToDoItem.js";
 
@@ -12,6 +13,7 @@ mongoose.connect(uri).then(
 );
 
 // app.use(express.static("public"));
+app.use(morgan("dev"))
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "pug");
 // app.use(morgan("dev"));

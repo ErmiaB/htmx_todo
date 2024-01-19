@@ -1,7 +1,7 @@
 
 
 mixin item(stuff, editing=false)
-    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1.w-96.transition.ease-in-out.duration-300(id=`f${stuff._id}` class=stuff.done?'opacity-50':'')
+    .todo_item.flex.justify-between.border-2.border-black.rounded.p-2.gap-1.w-96.transition.ease-in-out.duration-300(id=`f${stuff._id}` class=stuff.done&&!editing?'opacity-50':'')
         input.w-6(type="checkbox" name="done" checked=stuff.done hx-patch=`/done/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML")
         if editing
             form.flex.justify-between.gap-1.w-full(hx-patch=`/update/${stuff._id}` hx-target=`#f${stuff._id}` hx-swap="outerHTML")
